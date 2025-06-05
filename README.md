@@ -96,11 +96,11 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 ## 📬 Contato
 
 Em caso de dúvidas ou sugestões, entre em contato pelo e-mail:  
-📧 `eudantas.alves@gmail.com ,   `
-📧 `eudantas.ralves@senacsp.edu.br ,   `
-📧 `douglas.rssimoes@senacsp.edu.br ,   `
-📧 `felipe.ecamargo@senacsp.edu.br ,   `
-📧 `simone.qbatista@senacsp.edu.br,   `
+📧 `eudantas.alves@gmail.com   `
+📧 `eudantas.ralves@senacsp.edu.br    `
+📧 `douglas.rssimoes@senacsp.edu.br   `
+📧 `felipe.ecamargo@senacsp.edu.br    `
+📧 `simone.qbatista@senacsp.edu.br  `
 `
 
 ---
