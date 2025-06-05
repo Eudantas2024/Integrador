@@ -1,0 +1,18 @@
+abrir o vs code na pasta frontend
+
+npm install
+
+abrir o vs code na pasta backend 
+
+npm install
+
+iniciar o react (frontend):
+
+npm run dev
+
+iniciar o servidor (backend):
+
+npm start
+
+
+
