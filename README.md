@@ -101,7 +101,7 @@ Em caso de dúvidas ou sugestões, entre em contato pelo e-mail:
 📧 `douglas.rssimoes@senacsp.edu.br   `
 📧 `felipe.ecamargo@senacsp.edu.br    `
 📧 `simone.qbatista@senacsp.edu.br  `
-`
+
 
 ---
 
