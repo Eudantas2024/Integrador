@@ -1,30 +1,31 @@
+# 📢 OPINA+ — Sistema de Ouvidoria Digital
 
-# OPINA+
+Sistema completo de ouvidoria para registro, moderação e exibição pública de reclamações ou sugestões. Desenvolvido com **React** no frontend e **Node.js + MongoDB** no backend.
 
-## INSTRUÇÕES DE COMO USAR:
+---
 
-O arquivo está sem a pasta NODE_MODULE (no frontend e no backend) para envio fácil.
+## 🧰 Pré-requisitos
 
-Executar o comando abaixo na pasta Frontend e também na pasta Backend
+Certifique-se de ter instalado em sua máquina:
 
+- ✅ [Node.js](https://nodejs.org/) (v16 ou superior)
+- ✅ [MongoDB Atlas](https://www.mongodb.com/atlas/database)
+- ✅ Gerenciador de pacotes **npm** (já incluído com o Node.js)
+
+---
+
+## 📁 Instalação
+
+O projeto está dividido em duas pastas principais:
+
+- `frontend/` — Interface do usuário (React)
+- `backend/` — API e Banco de Dados (Express + MongoDB)
+
+**Nota:** As pastas **não contêm** a pasta `node_modules`, para facilitar o envio do projeto.
+
+### 1️⃣ Instalando as dependências
+
+Acesse as pastas `frontend/` e `backend/` separadamente e execute:
+
+```bash
 npm install
-
-subir o react na pasta frontend com o comando
-
-npm run dev
-
-e subir o servidor na pasta backend com o comando
-
-npm run dev
-
-para testar o site
-
-criar um usuário fictício com seu email verdadeiro (que você receberá notificações de status sobre a reclamação registrada)
-
-senha para acessar a parte admin do site:
-
-user: admin@seudominio.com
-
-senha: senac2025
-
-cada vez que registrar uma reclamação, a mesma só será publicada no site para visualização publica, quando aprovada pelo admin (com o login acima)
