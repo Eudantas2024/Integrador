@@ -29,3 +29,85 @@ Acesse as pastas `frontend/` e `backend/` separadamente e execute:
 
 ```bash
 npm install
+```
+
+---
+
+## 🚀 Executando o Projeto
+
+### ▶️ Frontend (React)
+
+```bash
+npm run dev
+```
+
+O sistema será iniciado geralmente em `http://localhost:5173/`.
+
+### 🖥️ Backend (Servidor Express)
+
+```bash
+npm run dev
+```
+
+O servidor será iniciado em `http://localhost:3000/` (ou conforme configurado).
+
+---
+
+## 🧪 Como Testar o Sistema
+
+1. Acesse o sistema pelo navegador após iniciar o frontend.
+2. Crie uma conta de **usuário fictício**, utilizando **um e-mail real** (o sistema envia notificações de status da sua reclamação).
+3. Registre uma **reclamação**, **sugestão** ou **elogio**.
+4. A publicação **aguarda aprovação administrativa**.
+
+---
+
+## 🔐 Acesso Administrativo
+
+Para acessar o painel de moderação:
+
+- 👤 **Usuário:** `admin@seudominio.com`  
+- 🔑 **Senha:** `senac2025`
+
+Acesse a área administrativa, aprove ou rejeite os conteúdos enviados pelos usuários.
+
+---
+
+## 📝 Observações
+
+- Apenas reclamações **aprovadas pelo administrador** serão exibidas publicamente.
+- Os dados dos usuários são protegidos conforme boas práticas de autenticação com JWT.
+- Este projeto é um protótipo acadêmico, ideal para testes e validações.
+
+---
+
+## 🤝 Contribuição
+
+Pull requests são bem-vindos! Para mudanças maiores, por favor, abra uma issue primeiro para discutir o que você gostaria de modificar.
+
+---
+
+## 🛡️ Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
+---
+
+## 📬 Contato
+
+Em caso de dúvidas ou sugestões, entre em contato pelo e-mail:  
+📧 `seuemail@seudominio.com`
+
+---
+
+## 👥 Créditos
+
+**Equipe de Desenvolvimento:**
+
+- Eudantas  
+- Douglas  
+- Felipe  
+- Simone  
+
+📘 *Técnico de Informática — SENAC Campinas*  
+📅 *Junho de 2025*
