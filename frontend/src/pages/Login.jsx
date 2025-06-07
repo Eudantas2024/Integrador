@@ -1,5 +1,5 @@
 // src/pages/Login.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
 import { FaUser, FaBuilding } from 'react-icons/fa';
@@ -11,6 +11,11 @@ function Login({ onLoginSuccess }) {
   const [sucesso, setSucesso] = useState(false);
   const [tipoLogin, setTipoLogin] = useState(null);
   const navigate = useNavigate();
+
+  // Garante que a página comece do topo ao montar
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -33,13 +38,11 @@ function Login({ onLoginSuccess }) {
     try {
       const rota = tipoLogin === 'cliente'
         ? 'http://localhost:3005/api/consumidor/login'
-        : 'http://localhost:3005/api/empresa/login'; // Ajuste conforme o backend
+        : 'http://localhost:3005/api/empresa/login';
 
       const resposta = await fetch(rota, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
 
@@ -49,25 +52,17 @@ function Login({ onLoginSuccess }) {
         throw new Error(resultado.error || 'Erro ao fazer login.');
       }
 
-      // Se login for bem-sucedido
       setSucesso(true);
       setErro('');
 
       // Armazena token e tipo de usuário
-      localStorage.setItem('token', resultado.token); // JWT
+      localStorage.setItem('token', resultado.token);
       localStorage.setItem('userType', tipoLogin);
 
-      if (onLoginSuccess) {
-        onLoginSuccess(tipoLogin);
-      }
+      if (onLoginSuccess) onLoginSuccess(tipoLogin);
 
-      // Redireciona após pequeno atraso
       setTimeout(() => {
-        if (tipoLogin === 'cliente') {
-          navigate('/novo-feedback');
-        } else {
-          navigate('/painel-empresa');
-        }
+        navigate(tipoLogin === 'cliente' ? '/novo-feedback' : '/painel-empresa');
       }, 1500);
 
     } catch (err) {
@@ -76,6 +71,7 @@ function Login({ onLoginSuccess }) {
     }
   };
 
+  // Tela de seleção de tipo de login
   if (!tipoLogin) {
     return (
       <div className="login-container tipo-selecao">
@@ -96,14 +92,13 @@ function Login({ onLoginSuccess }) {
   }
 
   return (
-    <div className="login-container" >
+    <div className="login-container">
       <h2>🔐 Login como {tipoLogin === 'cliente' ? 'Cliente' : 'Empresa'}</h2>
-    
 
-      {sucesso && <p className="sucesso">Login realizado com sucesso! Redirecionando... ✅</p>}
-      {erro && <p className="erro">{erro}</p>}
+      {sucesso && <p className="sucesso">✅ Login realizado com sucesso! Redirecionando...</p>}
+      {erro && <p className="erro">❌ {erro}</p>}
 
-      <form className='form' onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
           id="email"
@@ -130,6 +125,7 @@ function Login({ onLoginSuccess }) {
             type="button"
             className="mostrar-senha-btn"
             onClick={() => setMostrarSenha(!mostrarSenha)}
+            aria-label={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'}
           >
             {mostrarSenha ? '🙈' : '👁️'}
           </button>

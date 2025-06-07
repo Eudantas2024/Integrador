@@ -12,26 +12,28 @@ const PainelAdmin = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("adminToken");
 
+  // Scroll para o topo ao entrar
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Verifica login e carrega dados
   useEffect(() => {
     if (!token) {
       setMensagem("Acesso negado. Faça login como administrador.");
       setTimeout(() => navigate("/admin"), 1500);
     } else {
-      // Carrega as reclamações inicialmente
       carregarReclamacoesPendentes();
       carregarReclamacoesAprovadas();
 
-      // Define intervalo para atualizar as reclamações a cada 10 segundos (10000 ms)
       const intervalo = setInterval(() => {
         carregarReclamacoesPendentes();
         carregarReclamacoesAprovadas();
       }, 10000);
 
-      // Cleanup: limpa o intervalo quando o componente desmontar
       return () => clearInterval(intervalo);
     }
   }, [navigate, token]);
-
 
   const carregarReclamacoesPendentes = async () => {
     try {
@@ -55,7 +57,10 @@ const PainelAdmin = () => {
       const res = await fetch("http://localhost:3005/api/reclamacoes/aprovadas", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (res.ok) setReclamacoesAprovadas(await res.json());
+      if (res.ok) {
+        const data = await res.json();
+        setReclamacoesAprovadas(data);
+      }
     } catch {
       setMensagem("Erro ao conectar com o servidor.");
     }
@@ -71,8 +76,10 @@ const PainelAdmin = () => {
         setMensagemCor("green");
         setMensagem("✅ Feedback Aprovado!");
         setIdsAprovados((prev) => [...prev, id]);
-        setTimeout(() => setMensagem(""), 1000);
-        setTimeout(() => setIdsAprovados((prev) => prev.filter(item => item !== id)), 1000);
+        setTimeout(() => {
+          setMensagem("");
+          setIdsAprovados((prev) => prev.filter(item => item !== id));
+        }, 1000);
       }
     } catch {
       setMensagemCor("red");
@@ -90,8 +97,10 @@ const PainelAdmin = () => {
         setMensagemCor("green");
         setMensagem("🗑️ Feedback excluído com sucesso!");
         setIdsExcluidos((prev) => [...prev, id]);
-        setTimeout(() => setMensagem(""), 1000);
-        setTimeout(() => setIdsExcluidos((prev) => prev.filter(item => item !== id)), 1000);
+        setTimeout(() => {
+          setMensagem("");
+          setIdsExcluidos((prev) => prev.filter(item => item !== id));
+        }, 1000);
       }
     } catch {
       setMensagemCor("red");
@@ -119,51 +128,46 @@ const PainelAdmin = () => {
           <section key={r._id} className="card-reclamacao">
             <p><strong>Consumidor:</strong> {r.username}</p>
             <p><strong>Email:</strong> {r.email}</p>
-            <p><strong>Tipo: </strong>  {r.tipoFeedback}</p>
+            <p><strong>Tipo:</strong> {r.tipoFeedback}</p>
             <p><strong>Assunto:</strong> {r.titulo}</p>
-            <p><strong>Mensagem:</strong> <br />{r.mensagem}</p>
+            <p><strong>Mensagem:</strong><br />{r.mensagem}</p>
 
             <div className="data-reclamacao">
-              <strong>Registrado em:</strong>{' '}
+              <strong>Registrado em:</strong>{" "}
               {r.createdAt
-                ? new Date(r.createdAt).toLocaleString('pt-BR', {
-                  day: '2-digit',
-                  month: '2-digit',
-                  year: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  second: '2-digit',
-                })
-                : 'Data não disponível'}
+                ? new Date(r.createdAt).toLocaleString("pt-BR", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  })
+                : "Data não disponível"}
             </div>
 
             <p><strong>Anexos:</strong></p>
-            {r.anexos && r.anexos.length > 0 ? (
+            {r.anexos?.length > 0 ? (
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                 {r.anexos.map((arquivo, idx) => {
                   const mimetype = arquivo.mimetype || "";
-                  const isImage = typeof mimetype === "string" && mimetype.startsWith("image/");
-                  if (isImage) {
-                    return (
-                      <img
-                        key={idx}
-                        src={`data:${arquivo.mimetype};base64,${arquivo.content}`}
-                        alt={arquivo.filename}
-                        style={{ width: "100px", height: "auto", objectFit: "cover", borderRadius: "4px" }}
-                      />
-                    );
-                  } else {
-                    return (
-                      <a
-                        key={idx}
-                        href={`data:${arquivo.mimetype};base64,${arquivo.content}`}
-                        download={arquivo.filename}
-                        style={{ alignSelf: "center" }}
-                      >
-                        📄 {arquivo.filename}
-                      </a>
-                    );
-                  }
+                  const isImage = mimetype.startsWith("image/");
+                  return isImage ? (
+                    <img
+                      key={idx}
+                      src={`data:${arquivo.mimetype};base64,${arquivo.content}`}
+                      alt={arquivo.filename}
+                      style={{ width: "100px", borderRadius: "4px" }}
+                    />
+                  ) : (
+                    <a
+                      key={idx}
+                      href={`data:${arquivo.mimetype};base64,${arquivo.content}`}
+                      download={arquivo.filename}
+                    >
+                      📄 {arquivo.filename}
+                    </a>
+                  );
                 })}
               </div>
             ) : (
@@ -187,51 +191,46 @@ const PainelAdmin = () => {
           <section key={r._id} className="card-reclamacao">
             <p><strong>Consumidor:</strong> {r.username}</p>
             <p><strong>Email:</strong> {r.email}</p>
-            <p><strong>Tipo: </strong>  {r.tipoFeedback}</p>
+            <p><strong>Tipo:</strong> {r.tipoFeedback}</p>
             <p><strong>Assunto:</strong> {r.titulo}</p>
-            <p><strong>Mensagem:</strong> <br />{r.mensagem}</p>
+            <p><strong>Mensagem:</strong><br />{r.mensagem}</p>
 
             <div className="data-reclamacao">
-              <strong>Registrado em:</strong>{' '}
+              <strong>Registrado em:</strong>{" "}
               {r.createdAt
-                ? new Date(r.createdAt).toLocaleString('pt-BR', {
-                  day: '2-digit',
-                  month: '2-digit',
-                  year: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  second: '2-digit',
-                })
-                : 'Data não disponível'}
+                ? new Date(r.createdAt).toLocaleString("pt-BR", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  })
+                : "Data não disponível"}
             </div>
 
             <p><strong>Anexos:</strong></p>
-            {r.anexos && r.anexos.length > 0 ? (
+            {r.anexos?.length > 0 ? (
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                 {r.anexos.map((arquivo, idx) => {
                   const mimetype = arquivo.mimetype || "";
-                  const isImage = typeof mimetype === "string" && mimetype.startsWith("image/");
-                  if (isImage) {
-                    return (
-                      <img
-                        key={idx}
-                        src={`data:${arquivo.mimetype};base64,${arquivo.content}`}
-                        alt={arquivo.filename}
-                        style={{ width: "100px", height: "auto", objectFit: "cover", borderRadius: "4px" }}
-                      />
-                    );
-                  } else {
-                    return (
-                      <a
-                        key={idx}
-                        href={`data:${arquivo.mimetype};base64,${arquivo.content}`}
-                        download={arquivo.filename}
-                        style={{ alignSelf: "center" }}
-                      >
-                        📄 {arquivo.filename}
-                      </a>
-                    );
-                  }
+                  const isImage = mimetype.startsWith("image/");
+                  return isImage ? (
+                    <img
+                      key={idx}
+                      src={`data:${arquivo.mimetype};base64,${arquivo.content}`}
+                      alt={arquivo.filename}
+                      style={{ width: "100px", borderRadius: "4px" }}
+                    />
+                  ) : (
+                    <a
+                      key={idx}
+                      href={`data:${arquivo.mimetype};base64,${arquivo.content}`}
+                      download={arquivo.filename}
+                    >
+                      📄 {arquivo.filename}
+                    </a>
+                  );
                 })}
               </div>
             ) : (

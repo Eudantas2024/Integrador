@@ -2,8 +2,17 @@
   width: 900px;
   padding: 4rem;
  
-
 }
+
+.principal h3 {
+  color: #3d78e4;
+  border-bottom: 2px groove #0056b3;
+  padding-bottom: 4px; /* opcional, dá um espaço entre o texto e a borda */
+  margin-bottom: 12px; /* opcional, separa o h3 de outros elementos abaixo */
+}
+
+
+
 
 .administrativa {
   display: flex;
@@ -23,6 +32,8 @@
   position: relative;
 
 }
+
+
 
 
 

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Cadastro.css'; // ✅ Reutilizando o CSS do Cadastro
+import './Cadastro.css'; // Reutilizando o CSS do Cadastro
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -10,19 +10,24 @@ const AdminLogin = () => {
   const [mensagemCor, setMensagemCor] = useState('');
   const navigate = useNavigate();
 
+  // Faz a página iniciar no topo ao montar o componente
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:3005/api/admin/login", {
+      const response = await fetch("http://localhost:3005/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim(), senha: senha.trim() }),
       });
 
-      const data = await res.json();
+      const data = await response.json();
 
-      if (res.ok) {
+      if (response.ok) {
         localStorage.setItem("adminToken", data.token);
         setMensagem("Login realizado com sucesso! Redirecionando...");
         setMensagemCor("green");
@@ -34,7 +39,7 @@ const AdminLogin = () => {
         setMensagem(data.error || "Erro no login.");
         setMensagemCor("red");
       }
-    } catch (err) {
+    } catch (error) {
       setMensagem("Erro na conexão com o servidor.");
       setMensagemCor("red");
     }
@@ -59,6 +64,7 @@ const AdminLogin = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="admin@email.com"
+          required
         />
 
         <label htmlFor="senha">Senha:</label>
@@ -70,6 +76,7 @@ const AdminLogin = () => {
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
             placeholder="Digite sua senha"
+            required
           />
           <button
             type="button"
