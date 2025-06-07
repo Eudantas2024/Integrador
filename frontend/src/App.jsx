@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import PainelCliente from './pages/ClientePainel';
 import DashboardEmpresa from './pages/Dashboard';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Cadastro from './pages/Cadastro'; // Cadastro de Cliente
 import FormularioFeedback from './pages/FormularioFeedback';
 import CadastroEmpresa from './pages/CadastroEmpresa'; // Cadastro de Empresa
@@ -13,7 +14,8 @@ import AdminLogin from './pages/AdminLogin'; // Login do Administrador
 import PainelAdmin from './pages/PainelAdmin'; // Painel do Administrador
 import Home from './pages/Home'; // Página inicial
 import UltimasReclamacoes from './pages/UltimasReclamacoes'; // Página para listar reclamações aprovadas
-import Blog from './pages/Blog';
+import Blog from './pages/Blog'; // Página "Quem Somos"
+import Contato from './pages/Contato'; // ✅ Página de Contato
 
 // Componente para proteger rotas de cliente
 const VerificarCliente = ({ userType, children }) => {
@@ -60,8 +62,11 @@ function App() {
         {/* Painel do Administrador */}
         <Route path="/paineladmin" element={<PainelAdmin />} />
 
-             {/* Blog */}
+        {/* Blog */}
         <Route path="/blog" element={<Blog />} />
+
+        {/* ✅ Página de Contato */}
+        <Route path="/contato" element={<Contato />} />
 
         {/* Página pública: últimas reclamações aprovadas */}
         <Route path="/reclamacoes" element={<UltimasReclamacoes />} />
@@ -100,6 +105,8 @@ function App() {
           }
         />
       </Routes>
+
+      <Footer userType={userType} onLogout={handleLogout} />
     </Router>
   );
 }

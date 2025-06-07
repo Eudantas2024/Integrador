@@ -1,0 +1,28 @@
+.contato-container {
+  padding: 60px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  color: #2a80d1;
+}
+
+.contato-info {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
+
+.contato-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  color: #2a80d1;
+}
+
+.contato-icon {
+  font-size: 1.5rem;
+  color: #2a80d1;
+}

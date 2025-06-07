@@ -49,7 +49,7 @@ O sistema será iniciado geralmente em `http://localhost:5173/`.
 npm run dev
 ```
 
-O servidor será iniciado em `http://localhost:3000/` (ou conforme configurado).
+O servidor será iniciado em `http://localhost:3005/` (ou conforme configurado).
 
 ---
 

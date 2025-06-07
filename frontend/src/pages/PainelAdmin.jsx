@@ -17,10 +17,21 @@ const PainelAdmin = () => {
       setMensagem("Acesso negado. Faça login como administrador.");
       setTimeout(() => navigate("/admin"), 1500);
     } else {
+      // Carrega as reclamações inicialmente
       carregarReclamacoesPendentes();
       carregarReclamacoesAprovadas();
+
+      // Define intervalo para atualizar as reclamações a cada 10 segundos (10000 ms)
+      const intervalo = setInterval(() => {
+        carregarReclamacoesPendentes();
+        carregarReclamacoesAprovadas();
+      }, 10000);
+
+      // Cleanup: limpa o intervalo quando o componente desmontar
+      return () => clearInterval(intervalo);
     }
-  }, []);
+  }, [navigate, token]);
+
 
   const carregarReclamacoesPendentes = async () => {
     try {
@@ -108,6 +119,7 @@ const PainelAdmin = () => {
           <section key={r._id} className="card-reclamacao">
             <p><strong>Consumidor:</strong> {r.username}</p>
             <p><strong>Email:</strong> {r.email}</p>
+            <p><strong>Tipo: </strong>  {r.tipoFeedback}</p>
             <p><strong>Assunto:</strong> {r.titulo}</p>
             <p><strong>Mensagem:</strong> <br />{r.mensagem}</p>
 
@@ -115,13 +127,13 @@ const PainelAdmin = () => {
               <strong>Registrado em:</strong>{' '}
               {r.createdAt
                 ? new Date(r.createdAt).toLocaleString('pt-BR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                  })
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                })
                 : 'Data não disponível'}
             </div>
 
@@ -175,6 +187,7 @@ const PainelAdmin = () => {
           <section key={r._id} className="card-reclamacao">
             <p><strong>Consumidor:</strong> {r.username}</p>
             <p><strong>Email:</strong> {r.email}</p>
+            <p><strong>Tipo: </strong>  {r.tipoFeedback}</p>
             <p><strong>Assunto:</strong> {r.titulo}</p>
             <p><strong>Mensagem:</strong> <br />{r.mensagem}</p>
 
@@ -182,13 +195,13 @@ const PainelAdmin = () => {
               <strong>Registrado em:</strong>{' '}
               {r.createdAt
                 ? new Date(r.createdAt).toLocaleString('pt-BR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                  })
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                })
                 : 'Data não disponível'}
             </div>
 

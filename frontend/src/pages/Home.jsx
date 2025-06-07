@@ -1,7 +1,7 @@
 // src/pages/Home.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaComments, FaHandshake, FaChartLine, FaUserPlus, FaBuilding } from 'react-icons/fa'; // Adicione ícones
+import { FaComments, FaHandshake, FaChartLine, FaBullhorn, FaUserPlus, FaBuilding } from 'react-icons/fa'; // Adicione ícones
 import './Home.css'; // <<-- VERIFIQUE SE ESTA LINHA ESTÁ PRESENTE E CORRETA!
 
 const Home = () => {
@@ -56,6 +56,23 @@ const Home = () => {
       </section>
 
       {/* Seção 2: Como Funciona / Nossos Benefícios */}
+      <section className="benefits-section">
+        
+        <div className="benefits-grid">
+          <div className="benefit-card">
+            <FaComments className="benefit-icon" />
+            <h3>Veja o que os consumidores tem registrado por aqui</h3><br /><br />
+              <Link to="/reclamacoes" className="btn-cta primary">
+              <FaBullhorn /> Clique aqui para ir para Últimas Publicações
+            </Link>
+   
+            
+          </div>
+       
+        </div>
+      </section>
+
+        {/* Seção 2: Como Funciona / Nossos Benefícios */}
       <section className="benefits-section">
         <h2>Por que usar o Opina+?</h2>
         <div className="benefits-grid">
