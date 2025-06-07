@@ -8,6 +8,7 @@ import {
   FaLinkedin,
   FaWhatsapp,
   FaEnvelope,
+  FaLock,
   FaHome,
   FaBook,
   FaBullhorn
@@ -30,6 +31,7 @@ const Footer = () => {
         <Link to="/blog" className="footer-link"><FaBook /> Quem Somos</Link>
         <Link to="/reclamacoes" className="footer-link"><FaBullhorn /> Feedbacks</Link>
         <Link to="/contato" className="footer-link"><FaEnvelope /> Contato</Link>
+        
       </div>
 
       {/* Bloco Direito - Redes Sociais em linha */}
@@ -41,7 +43,8 @@ const Footer = () => {
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-icon"><FaTwitter /></a>
           <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon"><FaLinkedin /></a>
           <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" className="social-icon"><FaWhatsapp /></a>
-        </div>
+        </div><br />
+        <Link to="/admin" className="nav-link"><FaLock />  Login para Àrea Adminstrativa </Link>
       </div>
 
     </footer>

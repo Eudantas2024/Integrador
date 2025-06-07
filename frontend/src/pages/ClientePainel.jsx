@@ -50,28 +50,14 @@ const Painel = () => {
       }}
     >
       <h2
-        style={{
-          color: '#333',
-          marginBottom: '20px',
-          borderBottom: '2px solid #ddd',
-          paddingBottom: '10px',
-          textAlign: 'center',
-        }}
+       
       >
         Olá, {feedbacks[0]?.username || 'usuário'}! Seja bem-vindo à sua área exclusiva
       </h2>
 
-      <h4
-        style={{
-          color: '#333',
-          marginBottom: '20px',
-          borderBottom: '2px solid #ddd',
-          paddingBottom: '10px',
-          textAlign: 'center',
-        }}
-      >
+      <h2>
         Painel do Cliente
-      </h4>
+      </h2>
 
       <p
         style={{

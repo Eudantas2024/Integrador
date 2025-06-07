@@ -34,7 +34,7 @@
   margin-right: 1rem;
   margin-left: -1rem;
   border-radius: 5px;
- 
+
   transition: transform 0.2s;
 }
 
@@ -45,7 +45,7 @@
 
 .icone-user {
   color: #5b7ae0;
-  vertical-align:baseline;
+  vertical-align: baseline;
 }
 
 .icone-envelope {
@@ -56,7 +56,7 @@
 .icone-msg {
   color: #ffae00;
   font-size: 1rem;
-  vertical-align:top;
+  vertical-align: top;
 }
 
 .data-reclamacao {
@@ -65,11 +65,7 @@
   font-size: 0.9em;
 }
 
-/* CORREÇÃO PARA ÍCONE DO MEGAFONE */
-.icon-megafone {
-  font-size: 1.8rem; /* pode ajustar o tamanho do ícone aqui */
-  vertical-align: middle;
-}
+
 
 
 .barra-busca {
@@ -116,7 +112,7 @@
 
 .assunto {
   text-transform: capitalize;
-   font-weight:bold;
+  font-weight: bold;
   font-size: 0.9rem;
 }
 
@@ -127,7 +123,7 @@
 }
 
 .mensagem-texto {
- font-size: 0.9rem;
+  font-size: 0.9rem;
 }
 
 /* Responsivo */
@@ -185,4 +181,37 @@
     font-size: 1.3rem;
     right: 8px;
   }
+}
+
+.feedback-e-data {
+  display: flex;
+padding-top: 0;
+padding-bottom: 2rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* CORREÇÃO PARA ÍCONE DO MEGAFONE */
+.icon-megafone {
+  font-size: 2rem;
+  align-items: center;
+  padding-right: 1rem;
+  /* pode ajustar o tamanho do ícone aqui */
+  /* vertical-align: middle; */
+}
+
+.feedback {
+  display: flex;
+  align-items: baseline;
+
+  font-weight: bold;
+  color: #8a8787;
+  gap: 5px;
+}
+
+.data-reclamacao {
+  font-size: 0.7rem;
+  color: #a5a5a5;
 }

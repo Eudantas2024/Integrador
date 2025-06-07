@@ -106,14 +106,31 @@ function UltimasReclamacoes() {
 
               return (
                 <div key={rec._id} className="card-reclamacao">
-                  <p className="feedback">
-                    <FaBullhorn
-                      className="icon-megafone"
-                      color={coresPorTipo[rec.tipoFeedback] || 'gray'}
-                    />
-                    {' '}
-                    <strong>{tiposFeedback[rec.tipoFeedback] || rec.tipoFeedback}</strong>
-                  </p>
+
+                  <div className="feedback-e-data">
+                    <p className="feedback">
+                      <FaBullhorn
+                        className="icon-megafone"
+                        color={coresPorTipo[rec.tipoFeedback] || 'gray'}
+                      />
+                      {' '}
+                      <strong>{tiposFeedback[rec.tipoFeedback] || rec.tipoFeedback}</strong>
+                    </p>
+
+                    <div className="data-reclamacao">
+                      <strong>Registrado em:</strong>{' '}
+                      {rec.createdAt
+                        ? new Date(rec.createdAt).toLocaleString('pt-BR', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          second: '2-digit',
+                        })
+                        : 'Data não disponível'}
+                    </div>
+                  </div>
 
                   <p className="cliente">
                     <FaUser className="icone-user" /> <strong>Cliente:</strong> {rec.username}
@@ -125,15 +142,17 @@ function UltimasReclamacoes() {
 
                   <p className="mensagem-texto">
                     <FaCommentDots className="icone-msg" /> <strong>Mensagem:</strong> <br />
-                    {mensagemFormatada}
+                    {mensagemExpandida === rec._id
+                      ? rec.mensagem
+                      : rec.mensagem.length > 500
+                        ? rec.mensagem.slice(0, 500) + '...'
+                        : rec.mensagem}
                   </p>
 
                   {rec.mensagem.length > 500 && (
                     <button
                       onClick={() =>
-                        setMensagemExpandida(
-                          mensagemExpandida === rec._id ? null : rec._id
-                        )
+                        setMensagemExpandida(mensagemExpandida === rec._id ? null : rec._id)
                       }
                       className="botao-ver-mais"
                     >
@@ -141,21 +160,6 @@ function UltimasReclamacoes() {
                     </button>
                   )}
 
-                  <div className="data-reclamacao">
-                    <strong>Registrado em:</strong>{' '}
-                    {rec.createdAt
-                      ? new Date(rec.createdAt).toLocaleString('pt-BR', {
-                          day: '2-digit',
-                          month: '2-digit',
-                          year: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          second: '2-digit',
-                        })
-                      : 'Data não disponível'}
-                  </div>
-
-                  {/* <p><strong>Anexos:</strong></p> */}
                   {rec.anexos && rec.anexos.length > 0 ? (
                     <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                       {rec.anexos.map((arquivo, idx) => {
@@ -193,6 +197,7 @@ function UltimasReclamacoes() {
                     <p></p>
                   )}
                 </div>
+
               );
             })
           )}

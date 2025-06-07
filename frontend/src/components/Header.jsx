@@ -39,7 +39,7 @@ const Header = ({ userType, onLogout }) => {
       <>
         <Link to="/login" className="nav-link"><FaSignInAlt /> Login</Link>
         <Link to="/cadastro" className="nav-link"><FaUserPlus /> Cadastro</Link>
-        <Link to="/admin" className="nav-link"><FaLock /> </Link>
+        
       </>
     ) : (
       <>
