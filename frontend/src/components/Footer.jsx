@@ -44,7 +44,7 @@ const Footer = () => {
           <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon"><FaLinkedin /></a>
           <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" className="social-icon"><FaWhatsapp /></a>
         </div><br />
-        <Link to="/admin" className="nav-link"><FaLock />  Login para Àrea Adminstrativa </Link>
+        <Link to="/admin" className="nav-link"><FaLock />  Acesso Administrativo </Link>
       </div>
 
     </footer>

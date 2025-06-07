@@ -70,6 +70,7 @@ Para acessar o painel de moderação:
 - 🔑 **Senha:** `senac2025`
 
 Acesse a área administrativa, aprove ou rejeite os conteúdos enviados pelos usuários.
+Procure pelo ícone do cadeado 🔒 no Footer.
 
 ---
 
