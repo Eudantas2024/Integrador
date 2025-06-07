@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaCommentDots, FaSearch, FaBullhorn, FaUserPlus } from 'react-icons/fa';
+import {
+  FaUser,
+  FaEnvelope,
+  FaCommentDots,
+  FaSearch,
+  FaBullhorn,
+  FaUserPlus,
+} from 'react-icons/fa';
 import './UltimasReclamacoes.css';
 
 function UltimasReclamacoes() {
@@ -74,7 +81,7 @@ function UltimasReclamacoes() {
           {reclamacoesFiltradas.length === 0 ? (
             <div className="cadastreseaqui">
               <p>
-                Em nosso arquivo ainda não consta nenhum Feedback para a empresa citada, gostaria de incluir?
+                Em nosso arquivo ainda não consta nenhum Feedback para a empresa citada. Gostaria de incluir?
                 Por favor faça um novo registro e ajude outras pessoas com essa avaliação.
               </p>
               <br />
@@ -111,21 +118,29 @@ function UltimasReclamacoes() {
                   <p className="cliente">
                     <FaUser className="icone-user" /> <strong>Cliente:</strong> {rec.username}
                   </p>
+
                   <p className="assunto">
-                    <FaEnvelope className="icone-envelope" /> ASSUNTO:    {rec.titulo}
+                    <FaEnvelope className="icone-envelope" /> ASSUNTO: {rec.titulo}
                   </p>
+
                   <p className="mensagem-texto">
                     <FaCommentDots className="icone-msg" /> <strong>Mensagem:</strong> <br />
                     {mensagemFormatada}
                   </p>
+
                   {rec.mensagem.length > 500 && (
                     <button
-                      onClick={() => setMensagemExpandida(mensagemExpandida === rec._id ? null : rec._id)}
+                      onClick={() =>
+                        setMensagemExpandida(
+                          mensagemExpandida === rec._id ? null : rec._id
+                        )
+                      }
                       className="botao-ver-mais"
                     >
                       {mensagemExpandida === rec._id ? 'Ver menos' : 'Ver mais'}
                     </button>
                   )}
+
                   <div className="data-reclamacao">
                     <strong>Registrado em:</strong>{' '}
                     {rec.createdAt
@@ -139,6 +154,44 @@ function UltimasReclamacoes() {
                         })
                       : 'Data não disponível'}
                   </div>
+
+                  {/* <p><strong>Anexos:</strong></p> */}
+                  {rec.anexos && rec.anexos.length > 0 ? (
+                    <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                      {rec.anexos.map((arquivo, idx) => {
+                        const mimetype = arquivo.mimetype || "";
+                        const isImage = mimetype.startsWith("image/");
+                        if (isImage) {
+                          return (
+                            <img
+                              key={idx}
+                              src={`data:${arquivo.mimetype};base64,${arquivo.content}`}
+                              alt={arquivo.filename}
+                              style={{
+                                width: "100px",
+                                height: "auto",
+                                objectFit: "cover",
+                                borderRadius: "4px",
+                              }}
+                            />
+                          );
+                        } else {
+                          return (
+                            <a
+                              key={idx}
+                              href={`data:${arquivo.mimetype};base64,${arquivo.content}`}
+                              download={arquivo.filename}
+                              style={{ alignSelf: "center" }}
+                            >
+                              📄 {arquivo.filename}
+                            </a>
+                          );
+                        }
+                      })}
+                    </div>
+                  ) : (
+                    <p></p>
+                  )}
                 </div>
               );
             })

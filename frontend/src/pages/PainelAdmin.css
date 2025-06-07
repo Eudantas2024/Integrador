@@ -1,6 +1,11 @@
+.principal {
+  width: 900px;
+  padding: 4rem;
+ 
 
+}
 
-.container {
+.administrativa {
   display: flex;
   width: 1000px;
   flex-direction: column;
@@ -8,17 +13,18 @@
   justify-content: center;
   min-height: calc(100vh - 60px);
   /* Ajusta para a altura da tela menos o menu superior */
-  background-color: #eff1ef;
   padding-left: 6rem;
   box-sizing: border-box;
   /* Inclui padding na largura total */
-  max-width: 800px;
+  max-width: 1000px;
   margin: auto;
   padding: 20px;
   text-align: center;
   position: relative;
 
 }
+
+
 
 .login-container h2 {
   color: var(--cor-primaria);

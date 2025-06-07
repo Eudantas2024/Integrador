@@ -1,13 +1,16 @@
 // src/pages/Home.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaComments, FaHandshake, FaChartLine, FaBullhorn, FaUserPlus, FaBuilding } from 'react-icons/fa'; // Adicione ícones
-import './Home.css'; // <<-- VERIFIQUE SE ESTA LINHA ESTÁ PRESENTE E CORRETA!
+import { FaComments, FaHandshake, FaChartLine, FaBullhorn, FaUserPlus, FaBuilding } from 'react-icons/fa';
+import './Home.css';
 
 const Home = () => {
-
   const [buscaEmpresa, setBuscaEmpresa] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleBuscaEmpresa = (e) => {
     e.preventDefault();
@@ -16,39 +19,32 @@ const Home = () => {
     }
   };
 
-
   return (
     <div className="home-container">
       <div className="busca-empresa-flutuante">
-        
         <form onSubmit={handleBuscaEmpresa}>
-          
           <input
             type="text"
             placeholder="Pesquise uma Empresa aqui..."
             value={buscaEmpresa}
             onChange={(e) => setBuscaEmpresa(e.target.value)}
-            
             className="input-busca-empresa"
           />
-          
           <button type="submit" className="botao-ir" disabled={!buscaEmpresa.trim()}>
             Ir
           </button>
-
         </form>
       </div>
       {/* Seção 1: Banner de Boas-Vindas */}
       <section className="hero-section">
         <div className="hero-content">
-          <img src={'/public/logo6.svg'} alt="Logo Opina+" className="logo11" /> {/* Adicione esta linha para inserir a logo */}
-          {/* <h1>Bem-vindo</h1> */}
+          <img src={'/public/logo6.svg'} alt="Logo Opina+" className="logo11" />
           <p className="slogan">Sua voz importa. Conectando clientes e empresas para um futuro melhor.</p>
           <div className="cta-buttons">
             <Link to="/cadastro" className="btn-cta primary">
               <FaUserPlus /> Cadastre-se como Cliente
             </Link>
-            <Link to="/cadastro-empresa" className="btn-cta secondary"> {/* <<-- Mude o caminho para a nova rota de empresa */} {/* Ou link para uma página "Para Empresas" */}
+            <Link to="/cadastro-empresa" className="btn-cta secondary">
               <FaBuilding /> Cadastre minha Empresa
             </Link>
           </div>
@@ -57,22 +53,18 @@ const Home = () => {
 
       {/* Seção 2: Como Funciona / Nossos Benefícios */}
       <section className="benefits-section">
-        
         <div className="benefits-grid">
           <div className="benefit-card">
             <FaComments className="benefit-icon" />
             <h3>Veja o que os consumidores tem registrado por aqui</h3><br /><br />
-              <Link to="/reclamacoes" className="btn-cta primary">
+            <Link to="/reclamacoes" className="btn-cta primary">
               <FaBullhorn /> Clique aqui para ir para Últimas Publicações
             </Link>
-   
-            
           </div>
-       
         </div>
       </section>
 
-        {/* Seção 2: Como Funciona / Nossos Benefícios */}
+      {/* Seção 2: Como Funciona / Nossos Benefícios */}
       <section className="benefits-section">
         <h2>Por que usar o Opina+?</h2>
         <div className="benefits-grid">
@@ -99,7 +91,7 @@ const Home = () => {
         <div className="cta-card">
           <h3>É Cliente? Sua Opinião Vale muito!</h3>
           <p>Faça login para compartilhar suas experiências ou crie sua conta agora.</p>
-          <div className="cta-card-buttons"> {/* Novo div para organizar botões */}
+          <div className="cta-card-buttons">
             <Link to="/login" className="btn-cta primary">
               <FaUserPlus /> Fazer Login
             </Link>
@@ -111,7 +103,7 @@ const Home = () => {
         <div className="cta-card">
           <h3>É Empresa? Conecte-se com Seus Clientes!</h3>
           <p>Cadastre sua empresa para receber e gerenciar feedbacks de forma eficiente.</p>
-          <Link to="/cadastro-empresa" className="btn-cta primary"> {/* Botão primário para a ação principal */}
+          <Link to="/cadastro-empresa" className="btn-cta primary">
             <FaBuilding /> Cadastrar Minha Empresa
           </Link>
         </div>

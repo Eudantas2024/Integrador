@@ -1,8 +1,10 @@
 import { useState } from 'react'
-// Linha CORRIGIDA: Agora ele procura por 'Cadastro.css' no MESMO DIRETÓRIO
-import './Cadastro.css' 
+import { useNavigate } from 'react-router-dom'
+import './Cadastro.css'
 
 function Cadastro() {
+  const navigate = useNavigate()
+
   const [form, setForm] = useState({
     nome: '',
     email: '',
@@ -26,47 +28,73 @@ function Cadastro() {
   }
 
   const handleSubmit = (e) => {
-  e.preventDefault();
-  if (!validar()) return;
-
-  fetch("http://localhost:3005/api/consumidor/register", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      username: form.nome,
-      email: form.email,
+    e.preventDefault()
+    if (!validar()) return
+    console.log("Enviando cadastro:", {
+      username: form.nome.trim(),
+      email: emailNormalizado,
       senha: form.senha
-    })
-  })
-    .then(res => {
-      if (!res.ok) {
-        return res.json().then(err => { throw err });
-      }
-      return res.json();
-    })
-    .then(data => {
-      console.log(data);
-      setSucesso(true);
-      setErros({});
-      setForm({ nome: '', email: '', senha: '' });
-    })
-    .catch(error => {
-      console.error("Erro no cadastro:", error);
-      setErros({ geral: error.error || "Erro ao realizar cadastro." });
-      setSucesso(false);
     });
-};
 
 
- 
-  
+    // Normalizar email antes do envio
+    const emailNormalizado = form.email.trim().toLowerCase()
+
+    fetch("http://localhost:3005/api/consumidor/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: form.nome.trim(),
+        email: emailNormalizado,
+        senha: form.senha
+      })
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(err => { throw err })
+        }
+        return res.json()
+      })
+      .then(data => {
+        console.log(data)
+        setSucesso(true)
+        setErros({})
+        setForm({ nome: '', email: '', senha: '' })
+
+        setTimeout(() => {
+          navigate('/login')
+        }, 1500)
+      })
+      .catch(error => {
+        console.error("Erro no cadastro:", error)
+
+        const erroMsg = error.error || ''
+
+        const mensagensRecarregar = [
+          "Usuário ou e-mail já cadastrado.",
+          "E-mail já cadastrado."
+        ]
+
+        if (mensagensRecarregar.includes(erroMsg)) {
+          setErros({ email: erroMsg })
+          // Removi o reload para não perder o que o usuário digitou
+          // Poderia resetar o formulário se desejar, mas melhor não recarregar a página
+        } else if (erroMsg.toLowerCase().includes("email")) {
+          setErros({ email: erroMsg })
+        } else {
+          setErros({ geral: erroMsg || "Erro ao realizar cadastro." })
+        }
+
+        setSucesso(false)
+      })
+  }
 
   return (
     <div className="cadastro-container">
       <h2>📝 Cadastro de Usuário</h2>
 
       {sucesso && <p className="mensagem sucesso">Cadastro realizado com sucesso! ✅</p>}
-      {erros.geral && <p className="mensagem erro">{erros.geral}</p>} {/* Mensagem de erro geral */}
+      {erros.geral && <p className="mensagem erro">{erros.geral}</p>}
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="nome">Nome:</label>
@@ -78,6 +106,7 @@ function Cadastro() {
           onChange={handleChange}
           className={erros.nome ? 'input-erro' : ''}
           placeholder="Digite seu nome"
+          autoComplete="name"
         />
         {erros.nome && <span className="erro-texto">{erros.nome}</span>}
 
@@ -90,6 +119,7 @@ function Cadastro() {
           onChange={handleChange}
           className={erros.email ? 'input-erro' : ''}
           placeholder="exemplo@email.com"
+          autoComplete="email"
         />
         {erros.email && <span className="erro-texto">{erros.email}</span>}
 
@@ -103,14 +133,20 @@ function Cadastro() {
             onChange={handleChange}
             className={erros.senha ? 'input-erro' : ''}
             placeholder="Mínimo 6 caracteres"
+            autoComplete="new-password"
           />
-          <button type="button" className="mostrar-senha-btn" onClick={() => setMostrarSenha(!mostrarSenha)}>
+          <button
+            type="button"
+            className="mostrar-senha-btn"
+            onClick={() => setMostrarSenha(!mostrarSenha)}
+            aria-label={mostrarSenha ? "Ocultar senha" : "Mostrar senha"}
+          >
             {mostrarSenha ? '🙈' : '👁️'}
           </button>
         </div>
         {erros.senha && <span className="erro-texto">{erros.senha}</span>}
 
-        <button type="submit" className="btn-cadastrar">Cadastrar</button> {/* Renomeei a classe para especificidade */}
+        <button type="submit" className="btn-cadastrar">Cadastrar</button>
       </form>
     </div>
   )

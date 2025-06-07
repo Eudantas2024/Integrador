@@ -11,6 +11,10 @@
   /* Cor de fundo suave */
 }
 
+.blog{
+  padding: 1rem 4rem;
+}
+
 img{
   width: 550px;
   padding-top: 0.2rem;
@@ -31,7 +35,7 @@ p {
 
 
 .logo2 {
-  padding: 0rem;
+  padding: 1rem;
   width: 300px;
   margin-bottom: 0;
 }

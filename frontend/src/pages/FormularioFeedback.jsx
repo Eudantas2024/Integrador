@@ -1,14 +1,16 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./FormularioFeedback.css";
 
 export default function FormReclamacao() {
   const fileInputRef = useRef(null);
+  const navigate = useNavigate(); // ← adicionado aqui
   const [mensagem, setMensagem] = useState("");
   const [titulo, setTitulo] = useState("");
   const [tipoFeedback, setTipoFeedback] = useState("problema");
   const [anexo, setAnexo] = useState(null);
   const [status, setStatus] = useState({ texto: "", tipo: "" });
-  const [showSuccessRepeat, setShowSuccessRepeat] = useState(false); // novo estado para mostrar o repeat
+  const [showSuccessRepeat, setShowSuccessRepeat] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,9 +47,11 @@ export default function FormReclamacao() {
         setAnexo(null);
         if (fileInputRef.current) fileInputRef.current.value = null;
 
-        // Mostrar mensagem repetida por 5 segundos
-        setShowSuccessRepeat(true);
-        setTimeout(() => setShowSuccessRepeat(false), 5000);
+        // Redirecionar para /meus-feedbacks após 1 segundo (opcional)
+        setTimeout(() => {
+          navigate("/meus-feedbacks");
+        }, 1000);
+
       } else {
         setStatus({ texto: data.error || "Erro ao enviar reclamação", tipo: "erro" });
       }
@@ -133,7 +137,6 @@ export default function FormReclamacao() {
           Enviar Reclamação
         </button>
 
-        {/* Mensagem repetida após o botão */}
         {showSuccessRepeat && (
           <div className="mensagem sucesso repeat">
             Reclamação enviada com sucesso!

@@ -13,7 +13,7 @@ const Blog = () => {
   return (
     <div className="container">
       <section className="blog">
-        <img src="https://espacocerto.net.br/wp-content/uploads/2021/05/iStock-1206820346.jpg" alt="Descrição da imagem" />
+        <img src="https://espacocerto.net.br/wp-content/uploads/2021/05/iStock-1206820346.jpg" alt="Descrição da imagem" /><br />
         <img src={'/public/logo2.svg'} alt="Logo Opina+" className="logo2" />
 
         <h2>Quem Somos</h2>

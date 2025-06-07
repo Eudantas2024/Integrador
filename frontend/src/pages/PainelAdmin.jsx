@@ -105,7 +105,7 @@ const PainelAdmin = () => {
   };
 
   return (
-    <div className="container">
+    <div className="administrativa">
       <button onClick={handleLogout} className="botao-logout">
         Clique aqui para Fazer Logout
       </button>
@@ -113,7 +113,7 @@ const PainelAdmin = () => {
       <h2>Área Administrativa</h2>
       {mensagem && <p style={{ color: mensagemCor }}>{mensagem}</p>}
 
-      <main>
+      <div className="principal">
         <h3>Reclamações Pendentes:</h3>
         {reclamacoesPendentes.map((r) => (
           <section key={r._id} className="card-reclamacao">
@@ -244,7 +244,7 @@ const PainelAdmin = () => {
             )}
           </section>
         ))}
-      </main>
+      </div>
     </div>
   );
 };

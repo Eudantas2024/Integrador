@@ -4,7 +4,7 @@ import BuscaEmpresa from '../components/BuscaEmpresa';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   FaUser, FaBuilding, FaPlusCircle, FaBook, FaCog, FaHome,
-  FaSignInAlt, FaUserPlus, FaSignOutAlt, FaCommentDots, FaChartBar, FaBullhorn
+  FaSignInAlt, FaUserPlus, FaLock, FaSignOutAlt, FaCommentDots, FaChartBar, FaBullhorn
 } from 'react-icons/fa';
 
 const Header = ({ userType, onLogout }) => {
@@ -25,9 +25,9 @@ const Header = ({ userType, onLogout }) => {
   </div>
 
   {/* Bloco Central - Busca */}
-  <div className="header-center">
+  {/* <div className="header-center">
     <BuscaEmpresa />
-  </div>
+  </div> */}
 
   {/* Bloco da Direita - Navegação */}
   <div className="header-right">
@@ -39,7 +39,7 @@ const Header = ({ userType, onLogout }) => {
       <>
         <Link to="/login" className="nav-link"><FaSignInAlt /> Login</Link>
         <Link to="/cadastro" className="nav-link"><FaUserPlus /> Cadastro</Link>
-        <Link to="/admin" className="nav-link"><FaCog /> Admin</Link>
+        <Link to="/admin" className="nav-link"><FaLock /> </Link>
       </>
     ) : (
       <>
